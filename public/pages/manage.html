@@ -1,0 +1,138 @@
+<h2 class="manageh2">题目管理</h2>
+<hr>
+<div>
+	<ul class="manageul">
+		<li class="three" page="pages/update.html"><a href="javascript:void(0)">修改题目</a></li>
+		<li class="two"><a href="javascript:void(0)">删除题目</a></li>
+		<li class="one" page="pages/add.html"><a href="javascript:void(0)">添加题目</a></li>
+	</ul>
+</div>
+
+<div class="managediv managetablediv">
+	<table class="table managetable table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>题干</th>
+				<th>选项</th>
+				<th>答案</th>
+				<th>分值</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		// 添加题目
+		$('.manageul li.one').off();
+		$('.manageul li.one').on('click',function(){
+			var page = $(this).attr('page');
+			$('.managediv').load(page);
+			$('.manageul li').css('display','none');
+			$('.manageul li.one').css('display','block');
+			if($(this).text()=='添加题目'){
+				$('.manageh2').text('题目添加');
+			}
+				 
+		});
+
+		// 显示所有
+		$.getJSON('tiku/findAll',function(data){
+			data.forEach(function(item){
+				// console.log(item);
+				var newTr = $('<tr>'
+					+'<td><input type="checkbox" name="" value="'+item.id+'"></td>'
+					+'<td>'+item.question+'</td>'
+					+'<td>'+item.options+'</td>'
+					+'<td>'+item.answer+'</td>'
+					+'<td>'+item.score+'</td>'
+				+'</tr>');
+				$('.managetable tbody').append(newTr);
+			});
+		});
+
+		// 删除题目
+		$('.manageul li.two').off();
+		$('.manageul li.two').on('click',function(){
+			var ids = $(".managetable input:checkbox:checked").toArray().map(function(item){
+				return item.value;
+			});
+			// console.log(ids);
+			$.ajax({
+				url:"tiku/batchDelete",
+				data:JSON.stringify(ids),
+				type:"POST",
+				'contentType':'application/json',
+				success:function(data){
+					alert("成功删除"+data.affectedRows+"条");
+					$('.leftnav li').eq(1).trigger('click');
+				}
+			});
+		});
+
+		// 修改题目
+		$('.manageul li.three').off();
+		$('.manageul li.three').on('click',function(){
+			$('.manageul li').css('display','none');
+			$('.manageul li.three').css('display','block');
+			if($(this).text()=='修改题目'){
+				$('.manageh2').text('题目修改');
+			}
+			var ids = $('.managetable input:checkbox:checked').toArray().map(function(item){
+				return item.value;
+			});
+			// console.log(ids);
+			if(ids.length==1){
+				var id = ids[0];
+				// console.log(id);
+				var page = $(this).attr('page');
+				$('.managediv').load(page);         //跳转到update.html页面
+				$.getJSON('tiku/findById?id='+id,function(data){
+					$('input[name = id]').val(data[0].id);
+					$('select[name = type]').val(data[0].type);
+					$('input[name = question]').val(data[0].question);
+
+					
+
+					$('input[name = option1]').val(data[0].options.slice(1,data[0].options.indexOf('B')));  
+					$('input[name = option2]').val(data[0].options.slice(data[0].options.indexOf('B')+1,data[0].options.indexOf('C'))); 
+					$('input[name = option3]').val(data[0].options.slice(data[0].options.indexOf('C')+1,data[0].options.indexOf('D'))); 
+					if($('select[name = type]').val()=='多选题'){
+						$('input[name = option4]').val(data[0].options.slice(data[0].options.indexOf('D')+1,data[0].options.indexOf('E')));
+						$('.updatetwo .yin').css('display','inline-block');
+					}else if($('select[name = type]').val()=='单选题'){
+						$('input[name = option4]').val(data[0].options.slice(data[0].options.indexOf('D')+1));
+					}else{
+						$('.updatetwo .yindiv').css('display','none');
+					}
+					$('input[name = option5]').val(data[0].options.slice(data[0].options.indexOf('E')+1,data[0].options.indexOf('F')));  
+					$('input[name = option6]').val(data[0].options.slice(data[0].options.indexOf('F')+1));  
+
+					$('input[name = answer]').val(data[0].answer);
+					$('input[name = score]').val(data[0].score);
+					$('select[name = complex]').val(data[0].complex);
+
+					$('select[name = direction]').val(data[0].direction);
+				//	$('select[name = direction]').trigger('click');
+					$('select[name = direction]').trigger('change');
+
+					$('input[name = author]').val(data[0].author);
+					$('input[name = time]').val(data[0].time);
+					$('select[name = know]').val(data[0].know);
+				});
+				
+			}else if(ids.length>1){
+				alert("请正确选择信息");
+			}else{
+				alert("请选中您要修改的信息");
+			}
+		});
+
+
+	});//结束位置
+</script>
+

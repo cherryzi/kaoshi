@@ -1,0 +1,145 @@
+<div class="addone">
+	 <select name="type" id="">
+	 	<option value="单选题" class="dan">单选题</option>
+	 	<option value="多选题" class="duo">多选题</option>
+	 	<option value="简答题" class="jian">简答题</option>
+	 </select>
+	 <select name="direction" id="direction" onchange="guanlian();">
+	 	<option value="方向">方向</option>
+	 </select>
+	 <select name="know" id="know">
+	 	<option value="知识点">知识点</option>
+	 </select>
+	 <select name="complex" id="">
+	 	<option value="难度">难度</option>
+	 	<option value="容易">容易</option>
+	 	<option value="中等">中等</option>
+	 	<option value="难">难</option>
+	 </select>
+	 <span>分值：<span>
+	 <input type="text" name="score">
+</div>
+<hr>
+<!-- 添加 -->
+<div class="addtwo">
+	<form action="">
+		<span>题干：</span><input type="text" name="question" maxlength="200" class="inputone"><br>
+
+		<div class="yindiv">
+			<span>选项：</span><br>
+			<span class="op">A</span><input type="text" name="option1" maxlength="200">
+			<span class="op">B</span><input type="text" name="option2" maxlength="200">
+			<br>
+			<span class="op">C</span><input type="text" name="option3" maxlength="200">
+			<span class="op">D</span><input type="text" name="option4" maxlength="200">
+			<br>
+			<span class="op yin">E</span><input type="text" name="option5" maxlength="200" class="yin">
+			<span class="op yin">F</span><input type="text" name="option6" maxlength="200" class="yin">
+			<br>
+		</div>
+		<span>答案：</span><input type="text" name="answer"  maxlength="200" class="inputone">
+		<br>
+		<button class="oneBtn">提交</button>
+		<button class="twoBtn">返回</button>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+
+	// select 关联
+	var arr1 = ["WebUI","Java","大数据","非IE"];
+		var arr2 = new Array();
+		arr2[0]=["html","css","js","node"];
+		arr2[1]=["j2ee","jdbc","jsp","xml"];
+		arr2[2]=["linux","mysql","kvm","docker"];
+		arr2[3]=["语文","数学","英语","物理"];
+
+		for(var i in arr1){
+			var option = $('<option>');
+			$(option).text(arr1[i]);
+			$(option).val(arr1[i]);
+			$("#direction").append(option);
+		}
+		function guanlian(){
+			$('#know').html('<option value="知识点">知识点</option>');
+			var j = $('#direction option:selected').index();
+			// console.log(j);
+			for(var i in arr2[j-1]){
+				var option = $('<option>');
+				$(option).text(arr2[j-1][i]);
+				$(option).val(arr2[j-1][i]);
+				$("#know").append(option);
+			}
+		}
+
+
+	$(function(){	
+
+		//点击
+		$('.dan').off();
+		$('.dan').on('click',function(){
+			$('.yindiv').css('display','block');
+			$('.yin').css('display','none');
+		});
+
+		$('.duo').off();
+		$('.duo').on('click',function(){
+			$('.yindiv').css('display','block');
+			$('.yin').css('display','inline-block');
+		});
+		$('.jian').off();
+		$('.jian').on('click',function(){
+			$('.yindiv').css('display','none');
+		});
+
+		//添加
+		$('.oneBtn').off();
+		$('.oneBtn').on('click',function(event){
+			event.preventDefault();
+			var type = $('select[name = type]').val();
+			var direction = $('select[name = direction]').val();
+			var know = $('select[name = know]').val();
+			var complex = $('select[name = complex]').val();
+			var score = $('.addone input[name = score]').val();
+			var question = $('.addtwo input[name = question]').val();
+			var options = 'A '+$('.addtwo input[name = option1]').val() + ' B '+$('.addtwo input[name = option2]').val() + ' C '+$('.addtwo input[name = option3]').val() + ' D '+$('.addtwo input[name = option4]').val()+ ' E'+$('.addtwo input[name = option5]').val()+ ' F '+$('.addtwo input[name = option6]').val();
+			var answer = $('.addtwo input[name = answer]').val();
+			var author = decodeURI(window.location.href.split('?')[1]);
+			var date = new Date();
+			var time = date.toLocaleString();
+			// console.log(time);
+			// console.log(author);
+			var newTi={
+				type:type,
+				question:question,
+				options:options,
+				answer:answer,
+				score:score,
+				complex:complex,
+				direction:direction,
+				know:know,
+				author:author,
+				time:time
+			};
+
+			// console.log(newTi);
+			$.ajax({
+				url:'/tiku/save',
+				data:JSON.stringify(newTi),
+				type:"POST",
+				'contentType':'application/json',
+				success:function(){
+					alert("提交成功");
+					$('.manageul li.one').trigger('click');
+				}
+			});
+		});		
+
+		$('.twoBtn').off();
+		$('.twoBtn').on('click',function(event){
+			event.preventDefault();
+			$('.leftnav li').eq(1).trigger('click');
+		});
+	});
+</script>

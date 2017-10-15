@@ -1,0 +1,335 @@
+*{
+	margin: 0;
+	padding: 0!important ;
+}
+a{
+	text-decoration: none!important ;
+	color: black!important ;
+}
+ul li{
+	list-style: none;
+}
+.container{
+	width: 100%;
+	height: 100%;
+}
+
+/*头部*/
+header{
+	height: 80px;
+	background-image: url(../images/top.png);
+	background-repeat: round;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+header .title{
+	margin-left: 20px;
+	margin-top: 10px;
+}
+header .sign{
+	position: relative;
+	top: -15px;
+	left: 350px;
+}
+header>span{
+	position: relative;
+	top: -12px;
+	font-size: 14px;
+	left: 160px;
+}
+header span a{
+	color: blue!important ;
+}
+header .img{
+	float: right;
+	margin-left: 20px;
+	margin-right: 25px;
+	margin-top: 10px;
+}
+header div{
+	position: absolute;
+	right: 30px;
+	top: 50px;
+}
+header div a{
+	margin-left: 50px;
+	margin-top: 50px;	
+}
+
+/*内容*/
+article{
+	height: 720px;
+	background-image: url(../images/bg.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.leftnav{
+	float: left;
+	width: 260px;
+	height: 650px;
+	border-radius: 20px;
+	background-image: url(../images/left.png);
+	margin-left: 10px;
+	padding: 5px!important ;
+}
+
+.leftnav div{
+	width: 240px;
+	height: 40px;
+	background-image: url(../images/left_li.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	margin-left: 8px;
+	margin-top: 10px;
+}
+.leftnav div img{
+	float: left;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin-left: 40px;
+	margin-top: 5px
+}
+.leftnav div span{
+	position: relative;
+	top: 8px;
+	left: 5px;
+	font-weight: bold;
+	font-size: 20px;
+	color: white;
+}
+
+.leftnav ul{
+	display: none;
+}
+.leftnav .current{
+	display: block;
+}
+.leftnav ul li{
+	margin-left: 40px;
+	width: 180px;
+	height: 30px;
+	background-image: url(../images/hover.png);
+	background-repeat: no-repeat;
+	background-size: 100% 80%;
+}
+.leftnav ul li.action{
+	background-image: url(../images/ul_li_act.png);
+}
+
+.leftnav ul li a{
+	margin-left: 50px;
+	font-size: 18px;
+}
+
+.content{
+	position: absolute;
+	height: 690px;
+	margin-left: 350px; 
+	margin-top: 10px;
+	background: white;
+	border-radius: 10px;
+	padding: 10px!important ;
+	width:1300px;
+}
+
+
+/*manage.html*/
+.managetablediv{
+	/*position: absolute;*/
+	/*top:300px;*/
+	margin-top: 60px;
+	overflow: auto;
+	height: 500px;
+}
+.manageul li.one{
+	background-image: url(../images/a.png);
+	background-repeat: no-repeat;
+	background-size: 100% 80%;
+}
+.manageul li.two{
+	background-image: url(../images/b.png);
+	background-repeat: no-repeat;
+	background-size: 100% 80%;
+}
+.manageul li.three{
+	background-image: url(../images/c.png);
+	background-repeat: no-repeat;
+	background-size: 100% 80%;
+}
+.manageul li{
+	float: right;
+	margin-right: 20px;
+	width: 100px;
+	height: 30px;
+}
+.manageul li a{
+	margin-left: 25px;
+	line-height: 25px;
+	font-size: 18px;
+}
+
+
+/*tidu.html*/
+.button{
+	position: relative;
+	left: 1150px;
+	top: -35px;
+	width: 100px;
+	height: 40px;
+}
+.search{
+	width: 300px;
+	position: relative;
+	left: 800px;
+	font-size: 18px;
+}
+
+.find_data{
+	width: 800px;
+	height: 150px;
+	margin-left: 200px;
+	font-weight: bold;
+	font-size: 18px;
+	text-align: center;
+}
+.find_data tbody tr th{
+	text-align: center;
+	font-size: 18px;
+}
+.table th{
+	font-size: 20px;
+	text-align: center;
+}
+.table td{
+	font-size: 18px;
+	text-align: center;
+}
+.tablediv{
+	height: 320px;
+	overflow: auto;
+}
+
+
+/*add.html*/
+
+.addone select{
+	width: 180px;
+	margin-left: 40px;
+	text-align: center;
+	font-size: 18px;
+}
+.addone span{
+	margin-left: 50px;
+	font-size: 18px;
+}
+.addone input{
+	margin-left: -40px;
+}
+
+.addtwo{
+	margin-left: 100px;
+}
+.addtwo span{
+	font-size: 18px;
+}
+.addtwo .op{
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background: #87CEEA;
+	text-align: center;
+	line-height: 50px;
+	margin-right: 10px;
+	margin-left: 50px;
+}
+.addtwo .yin{
+	display: none;
+}
+.addtwo .yindiv{
+	display: block;
+}
+
+.addtwo input{
+	display: inline-block;
+	width: 400px;
+	height: 50px;
+	margin-top:10px;
+}
+.addtwo .inputone{
+	width: 980px;
+	margin-top: 20px;
+}
+.addtwo button{
+	width: 100px;
+	height: 50px;
+	font-size: 20px;
+	margin-top: 20px;
+	margin-left: 200px;
+}
+.addtwo .oneBtn{
+	margin-left: 300px;
+}
+
+/*update.html*/
+.updateone select{
+	width: 180px;
+	margin-left: 40px;
+	text-align: center;
+	font-size: 18px;
+}
+.updateone span{
+	margin-left: 50px;
+	font-size: 18px;
+}
+.updateone input{
+	margin-left: -40px;
+}
+
+.updatetwo{
+	margin-left: 100px;
+}
+.updatetwo span{
+	font-size: 18px;
+}
+.updatetwo .op{
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background: #87CEEA;
+	text-align: center;
+	line-height: 50px;
+	margin-right: 10px;
+	margin-left: 50px;
+}
+.updatetwo .yin{
+	display: none;
+}
+.updatetwo .yindiv{
+	display: block;
+}
+.updatetwo input{
+	display: inline-block;
+	width: 400px;
+	height: 50px;
+	margin-top:10px;
+}
+.updatetwo .inputone{
+	width: 980px;
+	margin-top: 10px;
+}
+.updatetwo .inputtwo{
+	width: 440px;
+	margin-top: 20px;
+}
+.updatetwo button{
+	width: 100px;
+	height: 50px;
+	font-size: 20px;
+	margin-top: 20px;
+	margin-left: 200px;
+}
+.updatetwo .uponeBtn{
+	margin-left: 300px;
+}

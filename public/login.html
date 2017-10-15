@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<script type="text/javascript" src="frameworks/jquery-3.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="frameworks/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="frameworks/bootstrap-3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<script type="text/javascript">
+		$(function(){
+			// 登录模态框
+			$('div a').eq(0).off();
+			$('div a').eq(0).on('click',function(){
+				$('h2.title1').show();
+				$('h2.title2').hide();
+				$('button.loginBtn').show();
+				$('button.registerBtn').hide();
+				$(".user .one").val('');
+				$(".user .two").val('');
+				$(".user .three").val('');
+				$('.modal').modal("show");
+			});
+
+			// 登录按钮
+			$('button.loginBtn').off();
+			$('button.loginBtn').on('click',function(){
+				var name = $('.user input[name=name]').val();
+				var psw = $('.user input[name=psw]').val();
+				var user={
+					name:name,
+					psw:psw
+				};
+				// console.log(user);
+
+				$.getJSON('login/findByName?name='+name,function(data){
+					if(data[0] == undefined){
+						alert("没有此用户");
+					}else{
+						var pswDB = data[0].psw;
+						if(psw==pswDB){
+							alert("欢迎进入考试作业系统");
+							window.location='index.html?'+name;
+						}else{
+							alert("密码错误");
+						}
+					}
+				}); 
+			});
+
+
+			// 注册
+			$('div a').eq(1).off();
+			$('div a').eq(1).on('click',function(){
+				$('h2.title2').show();
+				$('h2.title1').hide();
+				$('button.registerBtn').show();
+				$('button.loginBtn').hide();
+				$(".user .one").val('');
+				$(".user .two").val('');
+				$(".user .three").val('');
+				$('.modal').modal("show");
+			});
+
+			// 成功注册
+			$('button.registerBtn').off();
+			$('button.registerBtn').on('click',function(){
+				var name = $('.user input[name=name]').val();
+				var psw = $('.user input[name=psw]').val();
+				var user={
+					name:name,
+					psw:psw
+				};
+				// console.log(user);
+				if(user.name!=0 && user.psw!=0){
+					$.ajax('login/save',{
+						data:user,
+						method:"POST",
+						'content-Type':'application/json',
+						success:function(){
+							alert("注册成功");
+							$('.modal').modal('hide');
+						}
+					});
+				}else{
+					alert("请输入信息");
+				} 
+			});
+
+
+			
+		});
+	</script>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<img src="images/tk_logo.png" alt="" class="title">
+			<div>
+				<a href="javascript:void(0)">登录</a>
+				<a href="javascript:void(0)">注册</a>
+			</div>
+		</header>
+		<article></article>
+	</div>
+
+	<!-- 模态框 -->
+	<div class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h2 class="modal-title title1">登录</h2>
+	        <h2 class="modal-title title2">注册</h2>
+	      </div>
+	      <div class="modal-body">
+	        <form action="" class="user">
+	        	<input type="hidden" name="id" class="one">
+	        	<span>账号:</span> <input type="text" name="name" class="two"><br><br><br>
+	        	<span>密码:</span> <input type="password" name="psw" class="three"><br><br><br>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">取消</button>
+	        <button type="button" class="btn btn-primary loginBtn btn-lg">登录</button>
+	        <button type="button" class="btn btn-primary registerBtn btn-lg">注册</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>

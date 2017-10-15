@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>考试系统</title>
+	<script type="text/javascript" src="frameworks/jquery-3.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="frameworks/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="frameworks/bootstrap-3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+	<script type="text/javascript">
+		$(function(){
+			//ul li功能
+			$('.leftnav li').off();
+			$('.leftnav li').on('click',function(){
+				$('.leftnav ul li').removeClass('action');
+				$(this).addClass('action');
+				var page = $(this).attr('page');
+				$('div.content').load(page);
+			});
+			$('.leftnav li').eq(0).trigger('click');
+
+			// 收缩功能
+			$('.leftnav .onediv').on('click',function(){
+				$('.leftnav ul').removeClass('current');
+				$('#oneul').addClass('current');
+			});
+
+			$('.leftnav .twodiv').on('click',function(){
+				$('.leftnav ul').removeClass('current');
+				$('#twoul').addClass('current');
+			});
+			
+			$('.leftnav .threediv').on('click',function(){
+				$('.leftnav ul').removeClass('current');
+				$('#threeul').addClass('current');
+			});
+			
+			var username = decodeURI(window.location.href.split('?')[1]);
+			$('#user').text(username);
+
+		});//结束位置
+	</script>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<img src="images/tk_logo.png" alt="" class="title">
+			<img src="images/sign.png" alt="" class="sign">
+			<span>你好，<span id="user"></span> <a href="login.html" target="_blank"> &nbsp;退出</a></span>
+			<img src="images/3.png" alt="" class="img">
+			<img src="images/2.png" alt="" class="img">
+			<img src="images/1.png" alt="" class="img">
+			<div>
+				<a href=""><span>关于</span></a>
+				<a href=""><span>换肤</span></a>
+				<a href=""><span>桌面</span></a>
+			</div>
+		</header>
+
+		<article>
+			<div class="leftnav">
+				<div class="onediv"><a href="javascript:void(0)"><img src="images/left_1.png" alt=""><span>题库</span></a></div>
+				<ul class="current" id="oneul">
+					<li page="pages/tiku.html"><a href="javascript:void(0)">全部题目</a></li>
+					<li page="pages/manage.html"><a href="javascript:void(0)">题目管理</a></li>
+				</ul>
+
+				<div class="twodiv"><a href="javascript:void(0)"><img src="images/left_2.png" alt=""><span>试卷管理</span></a></div>
+				<ul id="twoul">
+					<li><a href="javascript:void(0)">试卷列表</a></li>
+					<li><a href="javascript:void(0)">手工组卷</a></li>
+				</ul>
+
+				<div class="threediv"><a href="javascript:void(0)"><img src="images/left_3.png" alt=""><span>考试管理</span></a></div>
+				<ul id="threeul">
+					<li><a href="javascript:void(0)">考试列表</a></li>
+					<li><a href="javascript:void(0)">考试安排</a></li>
+				</ul>
+			</div>
+
+			<div class="content">
+				
+			</div>
+		</article>
+
+		<footer></footer>
+	</div>
+</body>
+</html>
